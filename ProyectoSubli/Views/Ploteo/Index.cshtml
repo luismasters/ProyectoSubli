@@ -1,0 +1,170 @@
+﻿@model ProyectoSubli.Models.CategoriaNegocio
+
+@{
+    ViewData["Title"] = "Área de Ploteo";
+}
+
+<div class="text-center mt-4 mb-5">
+    <h1 class="display-4 fw-bold" style="color: #00d2ff;">✂️ Área de Ploteo y Vinilo</h1>
+    <p class="lead">Dashboard integral: Videos, Galería de Referencias y Notas Estratégicas.</p>
+</div>
+
+<div class="row mb-5">
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100 border-primary">
+            <div class="card-header bg-primary text-white fw-bold">➕ Sumar Video</div>
+            <div class="card-body">
+                <form asp-action="AgregarVideo" method="post">
+                    <input type="text" name="titulo" class="form-control mb-2" required placeholder="Título del tutorial" />
+                    <textarea name="urlIframe" class="form-control mb-2" rows="2" required placeholder='Código Iframe'></textarea>
+                    <button type="submit" class="btn btn-primary w-100">Guardar Video</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100 border-success">
+            <div class="card-header bg-success text-white fw-bold">🖼️ Sumar Imagen (URL)</div>
+            <div class="card-body">
+                <form asp-action="AgregarImagen" method="post">
+                    <input type="text" name="descripcion" class="form-control mb-2" required placeholder="Ej: Setup Gamer Rojo" />
+                    <input type="url" name="urlImagen" class="form-control mb-2" required placeholder="https://ejemplo.com/foto.jpg" />
+                    <button type="submit" class="btn btn-success w-100">Agregar a Galería</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100 border-warning">
+            <div class="card-header bg-warning text-dark fw-bold">📝 Sumar Nota / Insumo</div>
+            <div class="card-body">
+                <form asp-action="AgregarNota" method="post">
+                    <input type="text" name="titulo" class="form-control mb-2" required placeholder="Ej: Comprar Vinilo" />
+                    <textarea name="contenido" class="form-control mb-2" rows="2" required placeholder="Detalles, precios, técnicas..."></textarea>
+                    <button type="submit" class="btn btn-warning w-100 fw-bold">Guardar Nota</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<h3 class="mt-4 mb-3">📝 Mis Notas y Tareas</h3>
+<div class="row mb-5">
+    @if (Model.Notas != null && Model.Notas.Count > 0)
+    {
+        foreach (var nota in Model.Notas)
+        {
+            <div class="col-md-3 mb-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-warning fw-bold">@nota.Titulo</h5>
+                        <p class="card-text">@nota.Contenido</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-0 text-end">
+                        <form asp-action="EliminarNota" method="post">
+                            <input type="hidden" name="id" value="@nota.Id" />
+                            <button type="submit" class="btn btn-sm btn-outline-danger">🗑️ Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p class="text-muted">No tienes notas guardadas.</p>
+    }
+</div>
+
+<h3 class="mb-3">🖼️ Galería de Referencias</h3>
+<div class="row mb-5 justify-content-center">
+    <div class="col-md-11">
+        @if (Model.Imagenes != null && Model.Imagenes.Count > 0)
+        {
+            <div id="carruselPloteo" class="carousel slide shadow p-4 bg-body-tertiary rounded" data-bs-ride="carousel">
+                <div class="carousel-inner">
+
+                    @for (int i = 0; i < Model.Imagenes.Count; i += 3)
+                    {
+                        <div class="carousel-item @(i == 0 ? "active" : "")">
+                            <div class="row">
+
+                                @for (int j = i; j < i + 3 && j < Model.Imagenes.Count; j++)
+                                {
+                                    var img = Model.Imagenes[j];
+                                    <div class="col-md-4">
+                                        <div class="card h-100 border-0 bg-transparent">
+                                            <img src="@img.UrlImagen" class="card-img-top rounded shadow-sm" style="height: 220px; object-fit: cover;" alt="Referencia">
+
+                                            <div class="card-body text-center p-2 d-flex flex-column justify-content-between">
+                                                <h6 class="text-truncate fw-bold mb-2 text-body" title="@img.Descripcion">@img.Descripcion</h6>
+
+                                                <form asp-action="EliminarImagen" method="post">
+                                                    <input type="hidden" name="id" value="@img.Id" />
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger w-100">
+                                                        🗑️ Eliminar
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#carruselPloteo" data-bs-slide="prev" style="width: 5%; background-color: rgba(0,0,0,0.2); border-radius: 10px;">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carruselPloteo" data-bs-slide="next" style="width: 5%; background-color: rgba(0,0,0,0.2); border-radius: 10px;">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-secondary border-0 shadow-sm">
+                Aún no hay imágenes. Pega la URL de una imagen en el formulario de arriba para armar tu galería.
+            </div>
+        }
+    </div>
+</div>
+
+<h3 class="mb-3">🎥 Videos y Tutoriales</h3>
+<div class="row">
+    @if (Model.Videos != null && Model.Videos.Count > 0)
+    {
+        foreach (var video in Model.Videos)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center fw-bold bg-body-tertiary">
+                        <span>@video.Titulo</span>
+                        <form asp-action="EliminarVideo" method="post">
+                            <input type="hidden" name="id" value="@video.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger">🗑️</button>
+                        </form>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="ratio ratio-16x9">
+                            @Html.Raw(video.UrlIframe)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p class="text-muted">Aún no hay videos guardados en esta área.</p>
+    }
+</div>
