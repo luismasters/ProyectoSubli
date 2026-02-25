@@ -1,0 +1,37 @@
+﻿<div class="bg-body-tertiary p-3 rounded shadow-sm border" style="position: sticky; top: 20px; max-height: 90vh; overflow-y: auto;">
+    <h5 class="fw-bold border-bottom pb-2 mb-3">➕ Agregar Recursos</h5>
+    <p class="text-muted small mb-4">Llena cualquiera de los formularios para sumar contenido a esta área.</p>
+
+    <div class="card shadow-sm mb-4 border-primary">
+        <div class="card-header bg-primary text-white fw-bold py-2">🎥 Nuevo Video</div>
+        <div class="card-body p-2">
+            <form asp-action="AgregarVideo" method="post">
+                <input type="text" name="titulo" class="form-control form-control-sm mb-2" required placeholder="Título del tutorial" />
+                <textarea name="urlIframe" class="form-control form-control-sm mb-2" rows="2" required placeholder='Código Iframe'></textarea>
+                <button type="submit" class="btn btn-primary btn-sm w-100 fw-bold">Guardar Video</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-4 border-success">
+        <div class="card-header bg-success text-white fw-bold py-2">🖼️ Nueva Imagen (URL)</div>
+        <div class="card-body p-2">
+            <form asp-action="AgregarImagen" method="post">
+                <input type="text" name="descripcion" class="form-control form-control-sm mb-2" required placeholder="Ej: Diseño o Referencia" />
+                <input type="url" name="urlImagen" class="form-control form-control-sm mb-2" required placeholder="https://..." />
+                <button type="submit" class="btn btn-success btn-sm w-100 fw-bold">Agregar a Galería</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-4 border-warning">
+        <div class="card-header bg-warning text-dark fw-bold py-2">📝 Nueva Nota / Parámetro</div>
+        <div class="card-body p-2">
+            <form asp-action="AgregarNota" method="post">
+                <input type="text" name="titulo" class="form-control form-control-sm mb-2" required placeholder="Título de la nota" />
+                <textarea name="contenido" class="form-control form-control-sm mb-2" rows="3" required placeholder="Detalles, precios, técnicas..."></textarea>
+                <button type="submit" class="btn btn-warning btn-sm w-100 fw-bold">Guardar Nota</button>
+            </form>
+        </div>
+    </div>
+</div>

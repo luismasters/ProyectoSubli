@@ -1,7 +1,7 @@
 ﻿@model ProyectoSubli.Models.CategoriaNegocio
 
 @{
-    ViewData["Title"] = "Área de Ploteo";
+    ViewData["Title"] = "Área de Impresión";
 }
 
 <div class="row mt-3">
@@ -13,13 +13,13 @@
     <div class="col-lg-8 col-xl-8 ms-lg-3">
 
         <div class="mb-4">
-            <h1 class="display-5 fw-bold mb-0" style="color: #00d2ff;">✂️ Área de Ploteo y Vinilo</h1>
-            <p class="lead mb-0 text-muted">Dashboard integral: Videos, Galería de Referencias y Notas Estratégicas.</p>
+            <h1 class="display-5 fw-bold text-info mb-0">🖨️ Área de Impresión</h1>
+            <p class="lead mb-0 text-muted">Gestión de documentos, anillados, plastificados y gráfica comercial.</p>
         </div>
 
         <hr class="mb-4" />
 
-        <h3 class="mt-4 mb-3">📝 Mis Notas y Tareas</h3>
+        <h3 class="mt-4 mb-3">📝 Lista de Precios e Insumos</h3>
         <div class="row mb-5">
             @if (Model.Notas != null && Model.Notas.Count > 0)
             {
@@ -28,7 +28,7 @@
                     <div class="col-md-4 mb-3">
                         <div class="card shadow-sm h-100 border-0 bg-body-tertiary">
                             <div class="card-body">
-                                <h5 class="card-title text-warning fw-bold">@nota.Titulo</h5>
+                                <h5 class="card-title text-info fw-bold">@nota.Titulo</h5>
                                 <p class="card-text">@nota.Contenido</p>
                             </div>
                             <div class="card-footer bg-transparent border-0 text-end">
@@ -43,16 +43,16 @@
             }
             else
             {
-                <p class="text-muted">No tienes notas guardadas.</p>
+                <p class="text-muted">Añade listas de precios de impresiones por carilla, costos de anillados, etc.</p>
             }
         </div>
 
-        <h3 class="mb-3">🖼️ Galería de Referencias</h3>
+        <h3 class="mb-3">🖼️ Catálogo de Trabajos</h3>
         <div class="row mb-5">
             <div class="col-md-12">
                 @if (Model.Imagenes != null && Model.Imagenes.Count > 0)
                 {
-                    <div id="carruselPloteo" class="carousel slide shadow p-4 bg-body-tertiary rounded" data-bs-ride="carousel">
+                    <div id="carruselImpresion" class="carousel slide shadow p-4 bg-body-tertiary rounded" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             @for (int i = 0; i < Model.Imagenes.Count; i += 3)
                             {
@@ -78,11 +78,11 @@
                                 </div>
                             }
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carruselPloteo" data-bs-slide="prev" style="width: 5%; background-color: rgba(0,0,0,0.2); border-radius: 10px;">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carruselImpresion" data-bs-slide="prev" style="width: 5%; background-color: rgba(0,0,0,0.2); border-radius: 10px;">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Anterior</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carruselPloteo" data-bs-slide="next" style="width: 5%; background-color: rgba(0,0,0,0.2); border-radius: 10px;">
+                        <button class="carousel-control-next" type="button" data-bs-target="#carruselImpresion" data-bs-slide="next" style="width: 5%; background-color: rgba(0,0,0,0.2); border-radius: 10px;">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Siguiente</span>
                         </button>
@@ -90,12 +90,12 @@
                 }
                 else
                 {
-                    <div class="alert alert-secondary border-0 shadow-sm">Aún no hay imágenes guardadas.</div>
+                    <div class="alert alert-secondary border-0 shadow-sm">Aún no hay imágenes de trabajos.</div>
                 }
             </div>
         </div>
 
-        <h3 class="mb-3">🎥 Videos y Tutoriales</h3>
+        <h3 class="mb-3">🎥 Mantenimiento y Tutoriales</h3>
         <div class="row">
             @if (Model.Videos != null && Model.Videos.Count > 0)
             {
@@ -121,7 +121,7 @@
             }
             else
             {
-                <p class="text-muted">Aún no hay videos guardados en esta área.</p>
+                <p class="text-muted">Puedes guardar tutoriales para destapar cabezales de impresora, uso de la anilladora, etc.</p>
             }
         </div>
 
